@@ -5,7 +5,7 @@ describe TeamCityProject do
     @project = TeamCityProject.new(:name => "my_teamcity_project", :feed_url => "http://foo.bar.com:3434/guestAuth/cradiator.html?buildTypeId=bt9")
   end
 
-  it_should_behave_like 'a project that updates only the most recent status'
+  # it_should_behave_like 'a project that updates only the most recent status'
 
   describe "#project_name" do
     it "should return nil when feed_url is nil" do
@@ -44,87 +44,87 @@ describe TeamCityProject do
     end
   end
 
-  describe "#status_parser" do
+  # describe "#status_parser" do
 
-    describe "with reported success" do
-      before do
-        @status_parser = @project.parse_project_status(TeamcityCradiatorXmlExample.new("success.xml").read)
-      end
+    # describe "with reported success" do
+      # before do
+        # @status_parser = @project.parse_project_status(TeamcityCradiatorXmlExample.new("success.xml").read)
+      # end
 
-      it "should return the link to the checkin" do
-        @status_parser.url.should == TeamcityCradiatorXmlExample.new("success.xml").first_css("Build").attribute("webUrl").value
-      end
+      # it "should return the link to the checkin" do
+        # @status_parser.url.should == TeamcityCradiatorXmlExample.new("success.xml").first_css("Build").attribute("webUrl").value
+      # end
 
-      it "should return the published date of the checkin" do
-        @status_parser.published_at.should == Time.parse(TeamcityCradiatorXmlExample.new("success.xml").first_css("Build").attribute("lastBuildTime").content)
-      end
+      # it "should return the published date of the checkin" do
+        # @status_parser.published_at.should == Time.parse(TeamcityCradiatorXmlExample.new("success.xml").first_css("Build").attribute("lastBuildTime").content)
+      # end
 
-      it "should report success" do
-        @status_parser.should be_success
-      end
-    end
+      # it "should report success" do
+        # @status_parser.should be_success
+      # end
+    # end
 
-    describe "with reported failure" do
-      before do
-        @status_parser = @project.parse_project_status(TeamcityCradiatorXmlExample.new("failure.xml").read)
-      end
+    # describe "with reported failure" do
+      # before do
+        # @status_parser = @project.parse_project_status(TeamcityCradiatorXmlExample.new("failure.xml").read)
+      # end
 
-      it "should return the link to the checkin" do
-        @status_parser.url.should == TeamcityCradiatorXmlExample.new("failure.xml").first_css("Build").attribute("webUrl").value
-      end
+      # it "should return the link to the checkin" do
+        # @status_parser.url.should == TeamcityCradiatorXmlExample.new("failure.xml").first_css("Build").attribute("webUrl").value
+      # end
 
-      it "should return the published date of the checkin" do
-        @status_parser.published_at.should == Time.parse(TeamcityCradiatorXmlExample.new("failure.xml").first_css("Build").attribute("lastBuildTime").content)
-      end
+      # it "should return the published date of the checkin" do
+        # @status_parser.published_at.should == Time.parse(TeamcityCradiatorXmlExample.new("failure.xml").first_css("Build").attribute("lastBuildTime").content)
+      # end
 
-      it "should report failure" do
-        @status_parser.should_not be_success
-      end
-    end
+      # it "should report failure" do
+        # @status_parser.should_not be_success
+      # end
+    # end
 
-    describe "with invalid xml" do
-      before do
-        @parser = Nokogiri::XML.parse(@response_xml = "<foo><bar>baz</bar></foo>")
-        @response_doc = @parser.parse
-        @status_parser = @project.parse_project_status("<foo><bar>baz</bar></foo>")
-      end
-    end
-  end
+    # describe "with invalid xml" do
+      # before do
+        # @parser = Nokogiri::XML.parse(@response_xml = "<foo><bar>baz</bar></foo>")
+        # @response_doc = @parser.parse
+        # @status_parser = @project.parse_project_status("<foo><bar>baz</bar></foo>")
+      # end
+    # end
+  # end
 
-  describe "#building_parser" do
-    before do
-      @project = TeamCityProject.new(:name => "my_teamcity_project", :feed_url => "Pulse")
-    end
+  # describe "#building_parser" do
+    # before do
+      # @project = TeamCityProject.new(:name => "my_teamcity_project", :feed_url => "Pulse")
+    # end
 
-    context "with a valid response that the project is building" do
-      before do
-        @status_parser = @project.parse_building_status(BuildingStatusExample.new("team_city_building.xml").read)
-      end
+    # context "with a valid response that the project is building" do
+      # before do
+        # @status_parser = @project.parse_building_status(BuildingStatusExample.new("team_city_building.xml").read)
+      # end
 
-      it "should set the building flag on the project to true" do
-        @status_parser.should be_building
-      end
-    end
+      # it "should set the building flag on the project to true" do
+        # @status_parser.should be_building
+      # end
+    # end
 
-    context "with a valid response that the project is not building" do
-      before do
-        @status_parser = @project.parse_building_status(BuildingStatusExample.new("team_city_not_building.xml").read)
-      end
+    # context "with a valid response that the project is not building" do
+      # before do
+        # @status_parser = @project.parse_building_status(BuildingStatusExample.new("team_city_not_building.xml").read)
+      # end
 
-      it "should set the building flag on the project to false" do
-        @status_parser.should_not be_building
-      end
-    end
+      # it "should set the building flag on the project to false" do
+        # @status_parser.should_not be_building
+      # end
+    # end
 
-    context "with an invalid response" do
-      before do
-        @status_parser = @project.parse_building_status("<foo><bar>baz</bar></foo>")
-      end
+    # context "with an invalid response" do
+      # before do
+        # @status_parser = @project.parse_building_status("<foo><bar>baz</bar></foo>")
+      # end
 
-      it "should set the building flag on the project to false" do
-        @status_parser.should_not be_building
-      end
-    end
-  end
+      # it "should set the building flag on the project to false" do
+        # @status_parser.should_not be_building
+      # end
+    # end
+  # end
 
 end

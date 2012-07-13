@@ -1,5 +1,4 @@
 class TeamCityChildProject
-  include TeamCityBuildStatusParsing
   include TeamCityProjectWithChildren
   attr_accessor :feed_url, :auth_username, :auth_password, :build_id
 
@@ -25,9 +24,15 @@ class TeamCityChildProject
     ["URL","ID"]
   end
 
+  def processor
+    TeamCityPayloadProcessor
+  end
+
   private
 
   def live_status_hash
     @live_status_hash ||= live_status_hashes.first
   end
+
+
 end
