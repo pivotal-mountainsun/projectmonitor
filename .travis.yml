@@ -5,6 +5,8 @@ bundler_args: --without postgres development
 notifications:
   email:
     - common-effort@pivotallabs.com
+  webhooks:
+    - http://abhx.t.proxylocal.com/projects/459/project_statuses/
 
 rvm:
   - 1.9.3

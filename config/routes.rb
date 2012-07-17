@@ -8,6 +8,7 @@ CiMonitor::Application.routes.draw do
   resources :users, :only => [:new, :create]
   resource :session, :only => [:create, :destroy]
   resources :projects, :only => [:index, :new, :create, :edit, :update, :destroy] do
+    resources :project_statuses, only: :create
     member do
       get :status
     end

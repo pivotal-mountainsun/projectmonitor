@@ -21,6 +21,7 @@ gem "awesome_print"
 gem "pivotal-tracker"
 gem "heroku_san"
 gem "airbrake"
+gem "proxylocal"
 
 group :production do
   gem "therubyracer"

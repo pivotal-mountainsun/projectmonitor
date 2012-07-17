@@ -52,6 +52,7 @@ GEM
       json (~> 1.4)
       nokogiri (>= 1.4.4)
       uuidtools (~> 2.1)
+    bert (1.1.6)
     bourbon (2.0.0.rc1)
       sass (>= 3.1)
     builder (3.0.0)
@@ -218,6 +219,9 @@ GEM
       rest-client (~> 1.6.0)
     pivotal_git_scripts (1.1.4)
     polyglot (0.3.3)
+    proxylocal (0.3.1)
+      bert (>= 1.1.2)
+      eventmachine (>= 0.12.10)
     pry (0.9.9.3)
       coderay (~> 1.0.5)
       method_source (~> 0.7.1)
@@ -347,6 +351,7 @@ DEPENDENCIES
   pg (~> 0.13.2)
   pivotal-tracker
   pivotal_git_scripts (~> 1.1.4)
+  proxylocal
   pry
   rails (~> 3.2.0)
   rails-erd
