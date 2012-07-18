@@ -29,4 +29,26 @@ class JenkinsPayloadProcessor < ProjectPayloadProcessor
       status
     end
   end
+
+  def parse_project_status_from_json
+    real_payload = JSON.parse(payload.keys.select{|k| k.match(/phase/)}.first)
+
+    status = ProjectStatus.new(:online => false, :success => false)
+    status.build_id = real_payload["build"]["number"]
+    status.published_at = Time.now
+    status.url = real_payload["build"]["url"]
+    # use STATUS + PHASE
+
+    status
+  end
+
+  def parse_building_status_from_json
+    building_status = BuildingStatus.new(false)
+    # use STATUS + PHASE
+    building_status
+  end
+
+  def detect_json?
+    payload.keys.select{|k| k.match(/phase/)}.any?
+  end
 end
