@@ -27,7 +27,7 @@ class TeamCityProject < Project
   end
 
   def self.feed_url_fields
-    ["URL","Build ID"]
+    ["URL","Build Type ID"]
   end
 
   def processor
