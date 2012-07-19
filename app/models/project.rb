@@ -6,7 +6,6 @@ class Project < ActiveRecord::Base
   belongs_to :aggregate_project
 
   serialize :last_ten_velocities, Array
-  serialize :serialized_feed_url_parts, Hash
 
   scope :enabled, where(:enabled => true)
   scope :standalone, enabled.where(:aggregate_project_id => nil)
@@ -17,18 +16,17 @@ class Project < ActiveRecord::Base
   acts_as_taggable
 
   validates :name, presence: true
-  validates :feed_url, presence: true
   validates :type, presence: true
   validates_length_of :location, :maximum => 20, :allow_blank => true
 
   before_save :check_next_poll
 
   attr_accessible :aggregate_project_id,
-    :feed_url, :code, :location, :name, :enabled, :polling_interval, :type, :tag_list,
+    :code, :location, :name, :enabled, :polling_interval, :type, :tag_list,
     :auth_password, :auth_username,
     :tracker_auth_token, :tracker_project_id,
     :ec2_monday, :ec2_tuesday, :ec2_wednesday, :ec2_thursday, :ec2_friday, :ec2_saturday, :ec2_sunday,
-    :ec2_elastic_ip, :ec2_instance_id, :ec2_secret_access_key, :ec2_access_key_id, :ec2_start_time, :ec2_end_time, :serialized_feed_url_parts
+    :ec2_elastic_ip, :ec2_instance_id, :ec2_secret_access_key, :ec2_access_key_id, :ec2_start_time, :ec2_end_time
 
   def self.displayable tags = nil
     scope = standalone.enabled

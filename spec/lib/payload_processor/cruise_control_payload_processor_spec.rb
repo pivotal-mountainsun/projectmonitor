@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe CruiseControlPayloadProcessor do
-  let(:project) { CruiseControlProject.create(:name => "Socialitis", :feed_url => "http://foo.bar.com:3434/projects/Socialitis.rss") }
+  let(:project) { CruiseControlProject.create!(:name => "Socialitis", :url => "http://foo.bar.com:3434/projects/Socialitis.rss") }
   let(:payload) { [CCRssExample.new(rss).read, nil] }
 
   subject do

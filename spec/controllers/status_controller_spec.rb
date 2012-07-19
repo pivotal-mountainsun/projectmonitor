@@ -3,7 +3,7 @@ describe StatusController do
   describe "#create" do
 
     context "Travis project" do
-      let!(:project) { TravisProject.create!(name: "foo", feed_url: "http://travis-ci.org/account/project/builds.json") }
+      let!(:project) { TravisProject.create!(name: 'foo', account: 'account', project: 'project') }
       let(:payload) do
       '{
          "id":1885645,
@@ -80,7 +80,7 @@ describe StatusController do
     end
 
     context "TeamCity project" do
-      let!(:project) { TeamCityRestProject.create(:name => "my_teamcity_project", :feed_url => "http://foo.bar.com:3434/app/rest/builds?locator=running:all,buildType:(id:bt3)" ) }
+      let!(:project) { TeamCityRestProject.create!(:name => "my_teamcity_project", url: "http://foo.bar.com:3434", build_type_id: "bt134" ) }
       let(:payload) do
        {"buildStatus"=>"Running", "buildResult"=>"success", "notifyType"=>"buildFinished",
        "buildRunner"=>"Command Line",

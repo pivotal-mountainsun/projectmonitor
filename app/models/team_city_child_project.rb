@@ -1,11 +1,15 @@
 class TeamCityChildProject
   include TeamCityProjectWithChildren
-  attr_accessor :feed_url, :auth_username, :auth_password, :build_id
+  attr_accessor :url, :build_type_id, :auth_username, :auth_password, :build_id
 
   def initialize(opts)
     opts.each do |attr,value|
       self.public_send("#{attr}=", value)
     end
+  end
+
+  def feed_url
+    TeamCityProject.generate_feed_url url, build_type_id
   end
 
   def building?
@@ -20,10 +24,6 @@ class TeamCityChildProject
     [live_status_hash[:published_at], *children.map(&:last_build_time)].max
   end
 
-  def self.feed_url_fields
-    ["URL","ID"]
-  end
-
   def processor
     TeamCityPayloadProcessor
   end
@@ -32,7 +32,8 @@ class TeamCityChildProject
     @live_status_hash ||= live_status_hashes.first
   end
 
-  private
+private
+
   def live_status_hashes
     live_builds.reject { |status|
       status[:status] == 'UNKNOWN' || (status[:running] && status[:status] == 'SUCCESS')
@@ -64,4 +65,5 @@ class TeamCityChildProject
       Time.now.localtime
     end
   end
+
 end

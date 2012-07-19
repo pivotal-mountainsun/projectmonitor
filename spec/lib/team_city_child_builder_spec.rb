@@ -1,8 +1,7 @@
 require 'spec_helper'
 
 describe TeamCityChildBuilder do
-  let(:feed_url) { "http://localhost:8111/app/rest/builds?locator=running:all,buildType:(id:bt2)" }
-  let(:parent) { TeamCityChainedProject.new(:feed_url => feed_url, :auth_username => "john", :auth_password => "secret") }
+  let(:parent) { TeamCityChainedProject.new(:url => "localhost:8111", build_type_id: "bt2", :auth_username => "john", :auth_password => "secret") }
   let(:parsed) { TeamCityChildBuilder.parse(parent, content) }
   let(:content) do
     <<-XML

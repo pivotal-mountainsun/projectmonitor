@@ -1,12 +1,12 @@
 class CruiseControlProject < Project
+
+  alias_attribute :url, :feed_url
+  attr_accessible :url
+
   validates :url, presence: true, format: {with: /https?:\/\/.*\.rss$/i, message: 'should end with ".rss"'}
 
-  def url
-    feed_url
-  end
-
-  def url=(url)
-    self.feed_url = url
+  def self.feed_url_fields
+    ['URL']
   end
 
   def project_name
@@ -18,7 +18,4 @@ class CruiseControlProject < Project
     CruiseControlPayloadProcessor
   end
 
-  def self.feed_url_fields
-    ["URL"]
-  end
 end

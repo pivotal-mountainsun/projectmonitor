@@ -29,28 +29,4 @@ describe TeamCityProject do
       subject.build_status_url.should == "http://foo.bar.com:3434/guestAuth/cradiator.html?buildTypeId=bt9"
     end
   end
-
-  describe '#url' do
-    subject { FactoryGirl.build(:team_city_project) }
-
-    it 'should read the url from the feed URL' do
-      subject.feed_url = 'https://foo.bar.com:3434/guestAuth/cradiator.html?buildTypeId=bt9'
-      subject.url.should == "foo.bar.com:3434"
-
-      subject.feed_url = 'https://foo2.bar4.net:5475/guestAuth/cradiator.html?buildTypeId=bt9'
-      subject.url.should == "foo2.bar4.net:5475"
-    end
-  end
-
-  describe '#build_type_id' do
-    subject { FactoryGirl.build(:team_city_project) }
-
-    it 'should read the build_type_id from the feed URL' do
-      subject.feed_url = 'https://foo.bar.com:3434/guestAuth/cradiator.html?buildTypeId=bt9'
-      subject.build_type_id.should == "bt9"
-
-      subject.feed_url = 'https://foo.bar.com:3434/guestAuth/cradiator.html?buildTypeId=bt43'
-      subject.build_type_id.should == "bt43"
-    end
-  end
 end

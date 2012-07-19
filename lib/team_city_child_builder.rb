@@ -20,7 +20,8 @@ class TeamCityChildBuilder
   def build_project(build_id)
     TeamCityChildProject.new(
       :build_id => build_id,
-      :feed_url => @parent.feed_url.gsub(@parent.build_type_id, build_id),
+      :url => @parent.url,
+      :build_type_id => build_id,
       :auth_username => @parent.auth_username,
       :auth_password => @parent.auth_password
     )
