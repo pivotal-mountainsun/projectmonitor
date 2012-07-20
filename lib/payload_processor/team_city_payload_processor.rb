@@ -58,7 +58,7 @@ class TeamCityPayloadProcessor < ProjectPayloadProcessor
   end
 
   def parse_project_status_from_json
-    status = project.statuses.new(:online => true, :success => false)
+    status = project.statuses.new(:success => false)
     case payload["buildResult"]
     when "success"
       status.success = true

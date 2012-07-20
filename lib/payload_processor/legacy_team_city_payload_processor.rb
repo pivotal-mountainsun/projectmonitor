@@ -7,7 +7,7 @@ class LegacyTeamCityPayloadProcessor < ProjectPayloadProcessor
   end
 
   def parse_project_status
-    status = ProjectStatus.new(:online => false, :success => false)
+    status = ProjectStatus.new(:success => false)
     latest_build = Nokogiri::XML.parse(payload).css('Build').first
     if latest_build
       status.success = latest_build.attribute('lastBuildStatus').value == "NORMAL"

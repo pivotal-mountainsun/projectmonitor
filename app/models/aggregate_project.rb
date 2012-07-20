@@ -71,7 +71,7 @@ class AggregateProject < ActiveRecord::Base
     return statuses.first if never_been_green?
     reds = []
     projects.each do |p|
-      reds << p.statuses.find(:last, :conditions => ["online = ? AND success = ? AND published_at IS NOT NULL AND id > ?", true, false, p.last_green.id])
+      reds << p.statuses.find(:last, :conditions => ["success = ? AND published_at IS NOT NULL AND id > ?", false, p.last_green.id])
     end
     reds.compact.sort_by(&:published_at).first
   end
@@ -79,7 +79,7 @@ class AggregateProject < ActiveRecord::Base
   def red_build_count
     return 0 if breaking_build.nil? || !online?
     red_project = projects.detect(&:red?)
-    red_project.statuses.count(:conditions => ["online = ? AND id >= ?", true, red_project.breaking_build.id])
+    red_project.statuses.count(:conditions => ["id >= ?", red_project.breaking_build.id])
   end
 
   def self.all_with_tags(tags)

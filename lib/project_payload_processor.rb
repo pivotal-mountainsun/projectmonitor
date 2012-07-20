@@ -13,8 +13,11 @@ class ProjectPayloadProcessor
       parse_project_status
     end
     if parsed_status
-      parsed_status.online = true
-      project.statuses.create!(parsed_status.attributes) unless project.status.match?(parsed_status)
+      unless project.status.match?(parsed_status)
+        project.create!(parsed_status.attributes)
+        project.online = true
+        project.save
+      end
     end
   end
 
