@@ -56,17 +56,8 @@ var ProjectEdit = {};
 
   o.validateFeedUrl = function () {
     var container = $('#field_container');
-    container.empty();
-    fields = $('option[value=' + $(this).val() + ']').data('feed-url-fields');
-    if(fields) {
-      fields = fields.split(',');
-      $(fields).each(function(field){
-        var name = fields[field];
-        var label = '<p><label for="feed_url_' + name + '">' + name + '</label>';
-        var input = '<input size="40" name="feed_url[' + name + ']" id="feed_url_' + name + '"></p>';
-        container.append($(label + input));
-      });
-    }
+    $('fieldset:not(#' + $(this).val() + ')', container).addClass('hide');
+    $('#' + $(this).val()).removeClass('hide');
   };
 
   o.init = function () {
